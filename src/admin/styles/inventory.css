@@ -1,0 +1,266 @@
+/* ── Inventory screen ───────────────────────────────────────
+   Everything here is prefixed .invp- so it never collides with
+   the shared admin styles. Colours come from the design tokens
+   in site.css, nothing is hard coded. */
+
+.invp { display: flex; flex-direction: column; gap: 18px; }
+
+/* Success line, sits above the numbers */
+.invp-flash { overflow: hidden; }
+.invp-flash-inner {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--paper); border: 1px solid var(--ok); border-radius: 8px;
+  padding: 11px 16px; color: var(--ok);
+  font-size: 13px; font-weight: 600;
+}
+
+/* Summary tiles */
+.invp-kpis { grid-column: auto; }
+.invp-kpi-btn {
+  font: inherit; text-align: left; cursor: pointer;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.invp-kpi-btn:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+.invp-kpi-btn.kpi--alert:hover { border-color: var(--mahogany); }
+
+/* Panel heads */
+.invp-count {
+  display: inline-grid; place-items: center;
+  min-width: 22px; height: 22px; padding: 0 7px; border-radius: 11px;
+  background: var(--cream-deep); color: var(--mahogany);
+  font-size: 11.5px; font-weight: 700;
+}
+.invp-tools { flex-wrap: wrap; }
+.invp-clear {
+  display: grid; place-items: center; width: 18px; height: 18px;
+  border-radius: 50%; color: var(--ink-mute);
+}
+.invp-clear:hover { color: var(--mahogany); }
+
+/* The low stock warning level */
+.invp-thresh {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--cream); border: 1px solid var(--line);
+  border-radius: 24px; padding: 5px 14px 5px 15px;
+}
+.invp-thresh > span {
+  color: var(--ink-mute); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+}
+
+/* Minus / number / plus */
+.invp-step {
+  display: inline-flex; align-items: center; gap: 2px;
+  background: var(--paper); border: 1px solid var(--line-strong);
+  border-radius: 20px; padding: 2px;
+}
+.invp-step button {
+  width: 30px; height: 30px; display: grid; place-items: center;
+  border-radius: 50%; color: var(--ink-soft);
+  transition: background 0.2s, color 0.2s;
+}
+.invp-step button:hover:not(:disabled) { background: var(--cream-deep); color: var(--mahogany); }
+.invp-step button:disabled { opacity: 0.32; cursor: not-allowed; }
+.invp-step input {
+  width: 48px; min-width: 0; padding: 4px 0; text-align: center;
+  background: none; border: none; outline: none;
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink);
+}
+.invp-step--sm button { width: 26px; height: 26px; }
+.invp-step--sm input { width: 38px; font-size: 12.5px; }
+
+/* Stock bars: the base .inv-bar is shared, these are the states */
+.invp-bar { height: 7px; }
+.invp-bar.invp-bar--low > div { background: var(--terracotta); }
+.invp-bar.invp-bar--out > div { background: var(--danger); min-width: 3px; }
+
+/* Needs restocking */
+.invp-cards {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 14px;
+}
+.invp-card {
+  display: flex; flex-direction: column; gap: 10px;
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 10px; padding: 14px 15px;
+}
+.invp-card--out { border-color: var(--danger); }
+.invp-card-top { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.invp-card-top img {
+  width: 44px; height: 54px; object-fit: contain;
+  border-radius: 5px; background: var(--cream-deep);
+}
+.invp-card-id { min-width: 0; }
+.invp-card-id strong { display: block; font-size: 13.5px; font-weight: 600; line-height: 1.25; }
+.invp-card-id .td-sub { font-size: 11px; }
+.invp-pill--out { background: var(--danger); color: var(--paper); }
+.invp-pill--low { background: var(--cream-deep); color: var(--terracotta); }
+.invp-card-hint { color: var(--ink-mute); font-size: 12px; }
+.invp-card-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.invp-set { display: flex; align-items: center; gap: 7px; margin-left: auto; }
+.invp-set-label {
+  color: var(--ink-mute); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.invp-set input {
+  width: 62px; min-width: 0; padding: 7px 8px; text-align: center;
+  background: var(--cream); border: 1px solid var(--line-strong); border-radius: 18px;
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); outline: none;
+  transition: border-color 0.25s;
+}
+.invp-set input:focus { border-color: var(--mahogany); }
+.invp-set .row-action:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Saved tick, reserves its space so nothing jumps */
+.invp-saved {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--ok); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  opacity: 0; transition: opacity 0.3s; white-space: nowrap;
+}
+.invp-saved.on { opacity: 1; }
+
+/* Filters */
+.invp-chips { margin-bottom: 14px; align-items: center; }
+.invp-chip-gap { width: 1px; align-self: stretch; background: var(--line); margin: 2px 4px; }
+.invp-chip-icon { display: inline-flex; align-items: center; gap: 7px; }
+.invp-result { color: var(--ink-mute); font-size: 12.5px; margin-bottom: 12px; }
+
+/* The big table */
+.invp-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.invp-scroll .invp-table { display: table; min-width: 880px; }
+.invp-table th.invp-check, .invp-table td.invp-check { width: 34px; padding-right: 0; }
+.invp-check input {
+  width: 16px; height: 16px; accent-color: var(--ink); cursor: pointer;
+}
+.invp-name { display: block; font-weight: 600; font-size: 13.5px; line-height: 1.3; }
+.invp-dept { color: var(--ink-soft); }
+.invp-bar-cell { min-width: 150px; }
+.invp-bar-cell .invp-bar { margin-bottom: 6px; }
+.invp-qty { display: block; font-family: var(--font-display); font-size: 1.2rem; line-height: 1.1; color: var(--ink); }
+.invp-qty.is-low { color: var(--terracotta); }
+.invp-qty.is-out { color: var(--danger); }
+.invp-table tr.invp-row-on > td { background: var(--cream-deep); }
+.invp-adjust { display: flex; align-items: center; gap: 9px; }
+.invp-table tfoot td {
+  border-bottom: none; border-top: 1px solid var(--line);
+  color: var(--ink-mute); font-size: 12.5px; padding-top: 14px;
+}
+.invp-total { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.invp-total strong { color: var(--ink); font-size: 14px; }
+.invp-table tfoot tr:hover td { background: none; }
+
+/* Bulk bar, sticks to the bottom of the screen while you work */
+.invp-bulk {
+  position: sticky; bottom: 14px; z-index: 40;
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin-top: 18px; padding: 12px 16px;
+  background: var(--ink); color: var(--cream); border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(30, 45, 38, 0.24);
+}
+.invp-bulk-count strong { display: block; font-size: 13.5px; font-weight: 700; }
+.invp-bulk-sub { font-size: 11.5px; opacity: 0.7; }
+.invp-bulk-form { display: flex; align-items: center; gap: 9px; margin-left: auto; }
+.invp-bulk-label {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7;
+}
+.invp-bulk-form input {
+  width: 58px; min-width: 0; padding: 8px; text-align: center;
+  background: none; border: 1px solid var(--sand); border-radius: 18px;
+  color: var(--cream); font-family: var(--font-mono); font-size: 13px; outline: none;
+}
+.invp-bulk-form input:focus { border-color: var(--cream); }
+.invp-bulk-more { display: flex; align-items: center; gap: 8px; }
+.invp-confirm { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; width: 100%; }
+.invp-confirm p { flex: 1 1 240px; font-size: 13px; line-height: 1.5; }
+
+.invp-bulk .btn { border-radius: 20px; }
+.invp-bulk .invp-b-light { background: var(--cream); color: var(--ink); }
+.invp-bulk .invp-b-light:hover { background: var(--sand); }
+.invp-bulk .invp-b-ghost { border-color: var(--sand); color: var(--cream); }
+.invp-bulk .invp-b-ghost:hover { background: var(--sand); color: var(--ink); }
+.invp-bulk .invp-b-danger { background: var(--danger); color: var(--paper); border-color: var(--danger); }
+.invp-bulk .invp-b-danger:hover { background: var(--mahogany); border-color: var(--mahogany); }
+
+/* Empty states */
+.invp-empty {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  text-align: center; padding: 42px 16px; color: var(--ink-mute);
+}
+.invp-empty svg { color: var(--sand); }
+.invp-empty strong { color: var(--ink); font-size: 14.5px; }
+.invp-empty p { font-size: 13px; max-width: 390px; line-height: 1.6; }
+.invp-empty .btn { margin-top: 10px; }
+
+/* How stock moves */
+.invp-notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 26px; }
+.invp-note { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; align-items: start; }
+.invp-note-ico {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--cream); color: var(--mahogany);
+}
+.invp-note strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.invp-note span { display: block; color: var(--ink-soft); font-size: 12.8px; line-height: 1.55; }
+
+/* ── Phones and small tablets ── */
+@media (max-width: 900px) {
+  .invp { gap: 14px; }
+  .invp-cards { grid-template-columns: minmax(0, 1fr); }
+  .invp-notes { grid-template-columns: minmax(0, 1fr); }
+
+  .invp-tools { width: 100%; }
+  .invp-tools .shop-search { flex: 1 1 100%; }
+  .invp-tools .shop-search input { width: 100%; min-width: 0; }
+  .invp-tools select { flex: 1 1 100%; }
+
+  .invp-thresh { padding: 5px 12px; gap: 8px; }
+  .invp-set { margin-left: 0; width: 100%; }
+  .invp-set input { flex: 0 0 auto; width: 120px; min-width: 0; }
+
+  .invp-step button { width: 34px; height: 34px; }
+  .invp-step--sm button { width: 30px; height: 30px; }
+  .invp-check input { width: 18px; height: 18px; }
+
+  /* the photo and department columns step aside on a small screen,
+     and the captions go quiet so the numbers stay readable */
+  .invp-scroll .invp-table { min-width: 620px; }
+  .invp-table thead th:nth-child(2), .invp-table tbody td:nth-child(2),
+  .invp-table thead th:nth-child(4), .invp-table tbody td:nth-child(4) { display: none; }
+  .invp-table tbody td:nth-child(3) { min-width: 132px; }
+  .invp-table tbody td:nth-child(7) .td-sub { display: none; }
+  .invp-table tbody .price { white-space: nowrap; }
+  .invp-bar-cell { min-width: 108px; }
+  .invp-bar-cell .td-sub { display: none; }
+  .invp-bar-cell .invp-bar { margin-bottom: 0; }
+
+  .invp-bulk { bottom: 10px; gap: 10px; padding: 12px; align-items: stretch; }
+  .invp-bulk-count { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .invp-bulk-count .invp-bulk-sub { display: none; }
+  .invp-bulk-form { margin-left: 0; width: 100%; flex-wrap: wrap; }
+  .invp-bulk-form input { flex: 0 0 auto; width: 66px; min-width: 0; }
+  .invp-bulk-form .invp-bulk-sub { flex: 1; }
+  .invp-bulk-form .btn { flex: 1 1 100%; }
+  .invp-bulk-more { width: 100%; }
+  .invp-bulk-more .btn { flex: 1; }
+  .invp-confirm .btn { flex: 1; }
+}
+
+@media (max-width: 520px) {
+  .invp-card-actions .row-action { flex: 1; justify-content: center; }
+  .invp-set .row-action { flex: 0 0 auto; }
+  .invp-saved { width: 100%; }
+  .invp-kpis .kpi { padding: 16px 15px; }
+  .invp-kpis .kpi-value { font-size: 1.35rem; }
+
+  /* tighter table so there is less to swipe through */
+  .invp-scroll .invp-table { min-width: 546px; }
+  .invp-table th, .invp-table td { padding: 10px 8px; }
+  .invp-table tbody td:nth-child(3) { min-width: 112px; }
+  .invp-bar-cell { min-width: 84px; }
+  .invp-step button { width: 30px; height: 30px; }
+  .invp-step input { width: 40px; }
+}
+
+@media (max-width: 380px) {
+  .invp-thresh-unit { display: none; }
+}

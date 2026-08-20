@@ -1,0 +1,464 @@
+/* ── Public order tracking (/track) ─────────────────────────
+   Storefront look: cream canvas, paper cards, mahogany accent.
+   Every class here is prefixed trk- so nothing collides with the
+   site or the management system. Phone first, calm on 390px. */
+
+.trk { max-width: 960px; margin: 0 auto; }
+
+.trk-lede {
+  color: var(--ink-soft);
+  font-size: 15px;
+  max-width: 54ch;
+  margin-top: 16px;
+}
+
+.trk-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: clamp(22px, 3.2vw, 34px);
+}
+
+/* ── The search form ─────────────────────────────────────── */
+.trk-form { max-width: 660px; }
+.trk-form .field { margin-bottom: 18px; }
+
+.trk-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.trk-quick {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mahogany);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 2px;
+  text-align: left;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.trk-quick:hover { color: var(--ink); border-color: var(--ink); }
+
+.trk-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding: 16px 18px;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--danger);
+  border-radius: 7px;
+  background: var(--cream-deep);
+}
+.trk-error p {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  max-width: 46ch;
+  margin: 0;
+}
+.trk-error .btn { white-space: nowrap; }
+
+.trk-hint {
+  color: var(--ink-mute);
+  font-size: 12.5px;
+  line-height: 1.65;
+  margin-top: 20px;
+  max-width: 52ch;
+}
+
+.trk-footnote {
+  color: var(--ink-mute);
+  font-size: 13px;
+  margin-top: 22px;
+}
+.trk-inline-link {
+  color: var(--mahogany);
+  font-weight: 600;
+  border-bottom: 1px solid var(--line-strong);
+}
+.trk-inline-link:hover { color: var(--ink); border-color: var(--ink); }
+
+/* ── The result ──────────────────────────────────────────── */
+.trk-result { display: flex; flex-direction: column; gap: 20px; }
+
+.trk-found {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ok);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 18px;
+}
+
+.trk-idline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.trk-idchip {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  background: var(--ink);
+  border-radius: 5px;
+  padding: 6px 11px;
+}
+.trk-ref {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ink-mute);
+}
+.trk-placed {
+  color: var(--ink-mute);
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.trk-status-h {
+  font-size: clamp(2rem, 5.6vw, 3rem);
+  margin-top: 14px;
+}
+.trk-status-h.is-cancelled { color: var(--danger); }
+.trk-status-sub {
+  color: var(--ink-soft);
+  font-size: 15px;
+  margin-top: 10px;
+  max-width: 46ch;
+}
+
+.trk-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-mute);
+}
+
+/* ── Step tracker ────────────────────────────────────────── */
+.trk-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 34px 0 4px;
+}
+
+.trk-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 0 8px;
+}
+
+/* the joining line, drawn from each dot across to the next one */
+.trk-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 21px;
+  left: calc(50% + 26px);
+  width: calc(100% - 52px);
+  height: 2px;
+  border-radius: 2px;
+  background: var(--cream-deep);
+}
+.trk-step.is-done:not(:last-child)::after { background: var(--ok); }
+
+.trk-step-dot {
+  position: relative;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  border: 2px solid var(--cream-deep);
+  color: var(--ink-mute);
+  transition: background 0.45s var(--ease), border-color 0.45s var(--ease), color 0.45s var(--ease);
+}
+.trk-step.is-done .trk-step-dot {
+  background: var(--ok);
+  border-color: var(--ok);
+  color: var(--paper);
+}
+.trk-step.is-now .trk-step-dot {
+  background: var(--mahogany);
+  border-color: var(--mahogany);
+  color: var(--cream);
+}
+/* the current step breathes */
+.trk-step.is-now .trk-step-dot::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid var(--mahogany);
+  animation: trk-ring 2s var(--ease) infinite;
+}
+@keyframes trk-ring {
+  0%   { transform: scale(0.86); opacity: 0.6; }
+  70%  { transform: scale(1.32); opacity: 0; }
+  100% { transform: scale(1.32); opacity: 0; }
+}
+
+.trk-step-text { display: flex; flex-direction: column; gap: 4px; }
+.trk-step-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-mute);
+  line-height: 1.3;
+}
+.trk-step.is-done .trk-step-label,
+.trk-step.is-now .trk-step-label { color: var(--ink); }
+.trk-step.is-now .trk-step-label { color: var(--mahogany); }
+.trk-step-when {
+  font-size: 11.5px;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+
+/* ── Cancelled, shown instead of the tracker ─────────────── */
+.trk-cancelled {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  margin-top: 28px;
+  padding: 20px 22px;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--danger);
+  border-radius: 8px;
+  background: var(--cream-deep);
+}
+.trk-cancelled-icon {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--danger);
+}
+.trk-cancelled strong { font-size: 14.5px; font-weight: 700; display: block; }
+.trk-cancelled p {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  margin-top: 5px;
+  max-width: 52ch;
+}
+
+/* ── Expected arrival ────────────────────────────────────── */
+.trk-eta {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  margin-top: 30px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--cream-deep);
+}
+.trk-eta svg { color: var(--mahogany); flex: none; margin-top: 2px; }
+.trk-eta strong {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.trk-eta span {
+  display: block;
+  color: var(--ink-soft);
+  font-size: 13px;
+  margin-top: 4px;
+  max-width: 52ch;
+}
+
+/* ── Two columns of detail ───────────────────────────────── */
+.trk-cols {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 20px;
+  align-items: start;
+}
+.trk-colstack { display: flex; flex-direction: column; gap: 20px; }
+
+.trk-block h3 {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 18px;
+}
+.trk-empty { color: var(--ink-mute); font-size: 13.5px; }
+
+/* Timeline */
+.trk-log { list-style: none; }
+.trk-log li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 11px 1fr;
+  gap: 15px;
+  padding-bottom: 20px;
+}
+.trk-log li:last-child { padding-bottom: 0; }
+.trk-log li::before {
+  content: '';
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-top: 5px;
+  background: var(--sand);
+}
+.trk-log li:last-child::before { background: var(--mahogany); }
+.trk-log li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 4.5px;
+  top: 21px;
+  bottom: 3px;
+  width: 2px;
+  background: var(--cream-deep);
+}
+.trk-log-body strong { font-size: 14px; font-weight: 700; display: block; }
+.trk-log-when {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-mute);
+  margin-top: 2px;
+}
+.trk-log-body p {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  margin-top: 5px;
+}
+
+/* Items */
+.trk-item {
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.trk-item:first-child { padding-top: 0; }
+.trk-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.trk-item-media {
+  width: 58px;
+  height: 70px;
+  border-radius: 5px;
+  background: var(--cream-deep);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--ink-mute);
+}
+.trk-item-media img { width: 100%; height: 100%; object-fit: contain; }
+.trk-item-info { min-width: 0; }
+.trk-item-info strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.trk-item-info span { font-size: 12.5px; color: var(--ink-mute); }
+.trk-item-price { font-size: 15px; white-space: nowrap; }
+
+/* Delivery details and money */
+.trk-where { display: flex; gap: 12px; align-items: flex-start; }
+.trk-where svg { color: var(--mahogany); flex: none; margin-top: 2px; }
+.trk-where strong { font-size: 14px; font-weight: 700; display: block; }
+.trk-where p { color: var(--ink-soft); font-size: 13.5px; margin-top: 4px; }
+.trk-where-note { color: var(--ink-mute); font-style: italic; }
+
+.trk-money { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 14px; }
+.trk-money > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 5px 0;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.trk-money .trk-total {
+  border-top: 1px solid var(--line);
+  margin-top: 9px;
+  padding-top: 13px;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 15px;
+}
+.trk-money .trk-total .price { font-size: 1.3rem; }
+
+/* Help card */
+.trk-help p { color: var(--ink-soft); font-size: 13.5px; margin-bottom: 18px; }
+.trk-help-phone { color: var(--ink-mute); font-size: 12.5px; margin: 14px 0 0; }
+
+.trk-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ── Phones ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .trk-lede { font-size: 14.5px; }
+
+  /* The tracker turns into a vertical journey */
+  .trk-steps {
+    grid-template-columns: 1fr;
+    margin: 28px 0 0;
+  }
+  .trk-step {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 15px;
+    padding: 0 0 26px;
+  }
+  .trk-step:last-child { padding-bottom: 0; }
+  .trk-step:not(:last-child)::after {
+    top: 50px;
+    bottom: 4px;
+    left: 21px;
+    width: 2px;
+    height: auto;
+  }
+  .trk-step-text { padding-top: 3px; }
+  .trk-step-label { font-size: 14px; }
+
+  .trk-cols { grid-template-columns: 1fr; }
+  .trk-error { flex-direction: column; align-items: flex-start; }
+  .trk-error .btn { width: 100%; }
+  .trk-actions { flex-direction: column; }
+  .trk-actions .btn { width: 100%; }
+  .trk-form-actions .btn { width: 100%; }
+  .trk-status-sub { font-size: 14.5px; }
+  .trk-item { grid-template-columns: 52px 1fr auto; gap: 12px; }
+  .trk-item-media { width: 52px; height: 62px; }
+  .trk-item-price { font-size: 14px; }
+  .trk-idchip { font-size: 12.5px; }
+}
+
+@media (max-width: 420px) {
+  .trk-card { padding: 20px 18px; }
+  .trk-ref { font-size: 11px; }
+  .trk-eta, .trk-cancelled { padding: 15px 16px; }
+}

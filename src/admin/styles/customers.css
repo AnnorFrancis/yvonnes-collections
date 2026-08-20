@@ -1,0 +1,511 @@
+/* ── Customers screen · Yvonne's Collections BMS ────────────
+   Everything here is prefixed .cust- so it never collides with
+   the shared admin and site stylesheets. */
+
+.cust { min-width: 0; }
+
+/* ── summary tiles ── */
+.cust-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
+  min-width: 0;
+}
+.cust-tiles > * { min-width: 0; }
+/* the extra .cust-tiles keeps these ahead of .kpi-value in admin.css
+   whichever order the two stylesheets happen to load in */
+.cust-tiles .cust-value-name {
+  font-size: 1.15rem;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── toolbar ── */
+.cust-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.cust-toolbar-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cust-toolbar-line--chips { justify-content: space-between; }
+.cust-toolbar-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.cust-select {
+  background: var(--paper);
+  color: var(--ink-soft);
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  padding: 9px 14px;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+}
+.cust-select:hover { border-color: var(--ink); color: var(--ink); }
+.cust-select:focus { border-color: var(--mahogany); }
+.cust-clear {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: var(--ink-mute);
+  background: var(--cream-deep);
+  flex-shrink: 0;
+}
+.cust-clear:hover { color: var(--mahogany); }
+
+/* ── inline success note ── */
+.cust-flash {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(74, 124, 89, 0.1);
+  border: 1px solid rgba(74, 124, 89, 0.35);
+  color: var(--ok);
+  border-radius: 8px;
+  padding: 11px 15px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.cust-flash svg { flex-shrink: 0; }
+
+/* ── table ── */
+.cust-tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.cust-table { width: 100%; }
+/* a money figure should never break across two lines */
+.cust-tablewrap .cust-table .price { white-space: nowrap; }
+.cust-col-check { width: 34px; padding-right: 0 !important; }
+.cust-check {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--mahogany);
+  cursor: pointer;
+  vertical-align: middle;
+}
+.cust-table tr.cust-row-on td { background: var(--cream); }
+
+.cust-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cust-name-btn {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.25s;
+}
+.cust-name-btn:hover { color: var(--mahogany); text-decoration: underline; }
+
+.cust-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.cust-badge--web { background: rgba(74, 124, 89, 0.14); color: var(--ok); }
+.cust-badge--hand { background: rgba(201, 183, 155, 0.32); color: var(--ink-soft); }
+
+.cust-tel { color: var(--ink-soft); white-space: nowrap; transition: color 0.25s; }
+.cust-tel:hover { color: var(--mahogany); text-decoration: underline; }
+
+.cust-actions { display: flex; gap: 7px; justify-content: flex-end; }
+/* .td-sub in admin.css is display:block, so these need the extra class to win */
+.cust-table .cust-sub-sm { display: none; }
+.cust-table .cust-sub-lg { display: block; }
+
+/* status pills the shared sheet does not carry */
+.cust-pill--ready { background: rgba(184, 97, 61, 0.16); color: var(--terracotta); }
+.cust-pill--cancelled { background: rgba(184, 67, 45, 0.12); color: var(--danger); }
+
+/* ── empty states ── */
+.cust-empty {
+  text-align: center;
+  padding: 54px 20px;
+  color: var(--ink-mute);
+}
+.cust-empty svg { color: var(--sand); margin-bottom: 14px; }
+.cust-empty h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.35rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.cust-empty p {
+  font-size: 13.5px;
+  max-width: 430px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+}
+.cust-empty-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── sticky bulk bar ── */
+.cust-bulk {
+  position: sticky;
+  bottom: 14px;
+  z-index: 20;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  padding: 12px 16px;
+  box-shadow: 0 18px 44px rgba(30, 45, 38, 0.16);
+}
+.cust-bulk-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.cust-bulk-count svg { color: var(--ok); flex-shrink: 0; }
+.cust-bulk-count--warn { color: var(--danger); }
+.cust-bulk-count--warn svg { color: var(--danger); }
+.cust-bulk-note { color: var(--ink-mute); font-size: 12.5px; }
+.cust-bulk-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.btn.cust-btn-danger { background: var(--danger); color: var(--cream); }
+.btn.cust-btn-danger:hover { background: var(--mahogany); }
+.btn.cust-btn-danger-out { border-color: var(--line-strong); color: var(--danger); }
+.btn.cust-btn-danger-out:hover { background: var(--danger); border-color: var(--danger); color: var(--cream); }
+
+/* ── modals ── */
+.cust-modal { max-height: 90vh; overflow-y: auto; }
+.cust-modal--wide { width: min(680px, 94vw); }
+.cust-modal .field { margin-bottom: 14px; }
+.cust-modal textarea { font-family: var(--font-body); resize: vertical; }
+.cust-modal .cust-paste {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+.cust-hint {
+  font-size: 12px;
+  margin: -8px 0 14px;
+  line-height: 1.5;
+}
+.cust-hint--bad { color: var(--danger); }
+.cust-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.cust-warn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(184, 67, 45, 0.08);
+  border: 1px solid rgba(184, 67, 45, 0.32);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+.cust-warn svg { color: var(--danger); flex-shrink: 0; }
+.cust-warn div { flex: 1; min-width: 0; }
+.cust-warn strong { display: block; font-size: 13px; color: var(--ink); font-weight: 700; }
+.cust-warn span { display: block; font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+
+.cust-import-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: -4px 0 16px;
+}
+.cust-import-bar .panel-note { margin-left: auto; }
+.cust-preview {
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 12px;
+  margin-bottom: 18px;
+}
+.cust-preview .adm-table { font-size: 12.5px; }
+.cust-preview .adm-table td { padding: 9px 8px; }
+.cust-preview .adm-table th { padding: 9px 8px; position: sticky; top: 0; background: var(--paper); }
+.cust-row-bad td { color: var(--ink-mute); }
+.cust-tag {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.cust-tag--ok { background: rgba(74, 124, 89, 0.14); color: var(--ok); }
+.cust-tag--bad { background: rgba(184, 67, 45, 0.1); color: var(--danger); }
+
+/* ── detail drawer ── */
+.cust-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 720;
+  background: rgba(30, 45, 38, 0.45);
+  display: flex;
+  justify-content: flex-end;
+}
+.cust-drawer {
+  width: min(470px, 100%);
+  height: 100%;
+  background: var(--paper);
+  border-left: 1px solid var(--line);
+  box-shadow: -30px 0 70px rgba(30, 45, 38, 0.14);
+  display: flex;
+  flex-direction: column;
+}
+.cust-drawer-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.cust-drawer-head h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.cust-drawer-since {
+  display: block;
+  color: var(--ink-mute);
+  font-size: 12px;
+  margin-top: 8px;
+}
+.cust-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px 34px;
+}
+
+.cust-stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.cust-stat {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.cust-stat strong {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cust-stat .price { font-size: 1.05rem; }
+
+.cust-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+.cust-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  border-bottom: 1px solid rgba(30, 45, 38, 0.06);
+}
+.cust-contact-row svg { color: var(--mahogany); flex-shrink: 0; }
+a.cust-contact-row:hover { color: var(--mahogany); }
+.cust-contact-row--empty, .cust-contact-row--plain { color: var(--ink-mute); }
+
+.cust-drawer-actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.cust-drawer-actions .btn { flex: 1; min-width: 150px; }
+
+.cust-section { margin-bottom: 24px; }
+.cust-section:last-child { margin-bottom: 0; }
+.cust-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line);
+}
+.cust-section-head h4 {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.cust-saved {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ok);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.cust-hist { display: flex; flex-direction: column; }
+.cust-hist-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(30, 45, 38, 0.06);
+}
+.cust-hist-row:last-child { border-bottom: none; }
+.cust-hist-main { min-width: 0; }
+.cust-hist-main strong { display: block; font-size: 12.5px; color: var(--ink); font-weight: 600; }
+.cust-hist-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.cust-hist-side .price { font-size: 14px; }
+
+.cust-mini-empty {
+  text-align: center;
+  color: var(--ink-mute);
+  padding: 22px 10px;
+}
+.cust-mini-empty svg { color: var(--sand); margin-bottom: 8px; }
+.cust-mini-empty p { font-size: 12.5px; line-height: 1.6; max-width: 300px; margin: 0 auto; }
+
+/* ── phones and small tablets ── */
+@media (max-width: 900px) {
+  .cust-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .cust-tiles .kpi { padding: 15px 16px; }
+  .cust-tiles .kpi-value { font-size: 1.4rem; }
+  .cust-value-name { font-size: 1rem; }
+
+  .cust-toolbar-line { gap: 8px; }
+  .cust-toolbar-line .shop-search { flex: 1; min-width: 0; }
+  .cust-toolbar-line .shop-search input { width: 100%; }
+  .cust-toolbar-actions { width: 100%; margin-left: 0; }
+  .cust-toolbar-actions .btn { flex: 1; }
+  .cust-select { flex: 1; min-width: 130px; }
+  .cust-toolbar-line--chips { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cust-toolbar-line--chips .shop-chips { width: 100%; }
+  .cust-toolbar-line--chips .chip { padding: 8px 12px; font-size: 10.5px; }
+
+  /* trade the wide columns for a compact sub line under the name */
+  .cust-col-hide { display: none; }
+  .cust-table .cust-sub-lg { display: none; }
+  .cust-table .cust-sub-sm { display: block; }
+  .cust-tablewrap .cust-table th, .cust-tablewrap .cust-table td { padding: 11px 6px; }
+  .cust-tablewrap .cust-table th:first-child,
+  .cust-tablewrap .cust-table td:first-child { padding-left: 0; }
+  .cust-tablewrap .cust-table th:last-child,
+  .cust-tablewrap .cust-table td:last-child { padding-right: 0; }
+  .cust-actions { flex-direction: column; align-items: stretch; gap: 5px; }
+  .cust-actions .row-action { justify-content: center; padding: 6px 9px; font-size: 11px; }
+  .cust-name-btn { font-size: 13px; }
+
+  .cust-bulk {
+    bottom: 10px;
+    padding: 12px 14px;
+    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cust-bulk-actions { margin-left: 0; }
+  .cust-bulk-actions .btn { flex: 1; }
+  .cust-bulk-actions .row-action { width: 100%; justify-content: center; }
+
+  .cust-modal { padding: 22px 18px; max-height: 88vh; }
+  .cust-modal .field-row { flex-direction: column; gap: 0; }
+  .cust-preview { max-height: 200px; padding: 0 8px; }
+  .cust-import-bar .panel-note { margin-left: 0; width: 100%; }
+
+  .cust-drawer { width: 100%; border-left: none; }
+  .cust-drawer-head { padding: 18px 16px 14px; }
+  .cust-drawer-head h3 { font-size: 1.25rem; }
+  .cust-drawer-body { padding: 16px 16px 30px; }
+  .cust-stat-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+  .cust-stat { padding: 10px; }
+  .cust-stat strong, .cust-stat .price { font-size: 0.92rem; }
+  .cust-stat .kpi-label { font-size: 9px; letter-spacing: 0.1em; }
+  .cust-drawer-actions .btn { min-width: 0; width: 100%; flex: none; }
+  .cust-hist-row { gap: 10px; }
+}
+
+/* Keep the four tiles two-up even on a 390px phone, so the list itself
+   is only a short scroll away. */
+@media (max-width: 560px) {
+  .cust-toolbar-line .shop-search { flex: 1 1 100%; }
+  .cust-tiles { gap: 10px; }
+  .cust-tiles .kpi { padding: 13px 13px; }
+  .cust-tiles .kpi svg { margin-bottom: 3px; }
+  .cust-tiles .kpi-label { font-size: 9.5px; letter-spacing: 0.12em; }
+  .cust-tiles .kpi-value { font-size: 1.25rem; }
+  .cust-tiles .cust-value-name { font-size: 0.95rem; }
+  .cust-tiles .kpi-sub { font-size: 11.5px; line-height: 1.45; }
+  .cust-empty { padding: 40px 8px; }
+}

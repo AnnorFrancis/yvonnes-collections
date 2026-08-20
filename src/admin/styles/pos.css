@@ -1,0 +1,457 @@
+/* ── Point of sale · the counter screen ──────────────────────
+   Prefix: .till-  (the existing .pos- classes belong to the old
+   screen in admin.css, nothing here touches them).
+   Built for a busy counter: big tap targets, no hidden menus,
+   and a receipt that prints on its own.                        */
+
+.till {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 372px;
+  gap: 18px;
+  align-items: start;
+}
+
+/* ── the live line ── */
+.till-head {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px 18px;
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 10px; padding: 13px 18px;
+}
+.till-head-live { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.till-head-figure {
+  display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--ink-mute);
+}
+.till-head-figure .price { font-size: 1.2rem; color: var(--ink); }
+.till-head-figure em { font-style: normal; font-size: 12px; }
+
+/* ── catalogue ── */
+.till-catalogue { min-width: 0; }
+.till-tools { display: flex; flex-direction: column; gap: 11px; margin-bottom: 14px; }
+
+.shop-search.till-search { width: 100%; position: relative; }
+.shop-search.till-search input { width: 100%; flex: 1; min-width: 0; }
+.shop-search.till-search--sm { padding: 7px 13px; }
+.shop-search.till-search--sm input { font-size: 13px; }
+.till-clear-search {
+  display: grid; place-items: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  color: var(--ink-mute); flex-shrink: 0;
+}
+.till-clear-search:hover { background: var(--cream-deep); color: var(--ink); }
+
+.till-chips {
+  overflow-x: auto; flex-wrap: nowrap; padding-bottom: 3px;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.till-chips::-webkit-scrollbar { display: none; }
+.till-chips .chip { white-space: nowrap; flex-shrink: 0; }
+
+.till-hint {
+  display: flex; align-items: center; gap: 7px;
+  color: var(--ink-mute); font-size: 12px;
+}
+.till-hint svg { flex-shrink: 0; }
+
+.till-flash {
+  display: flex; align-items: center; gap: 9px;
+  border: 1px solid; border-radius: 8px; padding: 10px 14px;
+  font-size: 12.8px; font-weight: 600; line-height: 1.4;
+  margin-bottom: 14px;
+}
+.till-flash svg { flex-shrink: 0; }
+.till-flash--ok { color: var(--ok); background: rgba(74, 124, 89, 0.09); border-color: rgba(74, 124, 89, 0.32); }
+.till-flash--warn { color: var(--danger); background: rgba(184, 67, 45, 0.08); border-color: rgba(184, 67, 45, 0.3); }
+
+/* ── product tiles ── */
+.till-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 12px;
+}
+.till-tile {
+  display: flex; flex-direction: column;
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 9px; overflow: hidden; text-align: left;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+.till-tile:hover:not(:disabled) {
+  border-color: var(--ink); transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(30, 45, 38, 0.08);
+}
+.till-tile:active:not(:disabled) { transform: translateY(0); }
+.till-tile:disabled { opacity: 0.5; cursor: not-allowed; }
+.till-tile.is-added { border-color: var(--ok); }
+
+.till-tile-shot { position: relative; display: block; background: var(--cream-deep); }
+.till-tile-shot img {
+  width: 100%; aspect-ratio: 1 / 1;
+  object-fit: contain; padding: 8px;
+}
+.till-tile-stock {
+  position: absolute; left: 7px; bottom: 7px;
+  background: rgba(255, 253, 248, 0.94); border: 1px solid var(--line);
+  border-radius: 20px; padding: 3px 9px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.till-tile-stock.is-low { color: var(--danger); border-color: rgba(184, 67, 45, 0.4); }
+.till-tile-stock.is-out { color: var(--cream); background: var(--danger); border-color: var(--danger); }
+.till-tile-count {
+  position: absolute; top: 7px; right: 7px;
+  min-width: 23px; height: 23px; padding: 0 6px; border-radius: 12px;
+  background: var(--ink); color: var(--cream);
+  font-size: 11px; font-weight: 700;
+  display: grid; place-items: center;
+}
+.till-tile-tick {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: rgba(74, 124, 89, 0.88); color: var(--cream);
+  animation: tillTick 0.7s var(--ease) both;
+}
+@keyframes tillTick {
+  0% { opacity: 0; }
+  18% { opacity: 1; }
+  72% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.till-tile-body { padding: 10px 11px 12px; display: flex; flex-direction: column; gap: 2px; }
+.till-tile-body strong {
+  font-size: 12.5px; font-weight: 600; line-height: 1.3;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.till-tile-body .price { font-size: 13.5px; }
+.till-tile-sku {
+  font-style: normal; font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-mute);
+}
+
+.till-empty {
+  display: flex; flex-direction: column; align-items: center; gap: 11px;
+  border: 1px dashed var(--line-strong); border-radius: 10px;
+  padding: 46px 22px; text-align: center; color: var(--ink-mute);
+}
+.till-empty p { color: var(--ink-soft); font-weight: 600; font-size: 14px; }
+.till-empty span { font-size: 12.8px; max-width: 320px; line-height: 1.5; }
+.till-empty .btn { margin-top: 4px; }
+
+/* ── the sale panel ── */
+.till-sale {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 10px; padding: 18px;
+  display: flex; flex-direction: column; gap: 14px;
+  position: sticky; top: 96px;
+  max-height: calc(100vh - 118px); overflow-y: auto;
+}
+.till-sale-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.till-sale-head h2 {
+  font-family: var(--font-body); font-size: 14.5px; font-weight: 700;
+  display: flex; align-items: center; gap: 8px;
+}
+.till-sale-count {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-mute);
+}
+.till-sale-empty {
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  border: 1px dashed var(--line-strong); border-radius: 9px;
+  padding: 26px 14px; text-align: center; color: var(--ink-mute);
+}
+.till-sale-empty p { color: var(--ink-soft); font-weight: 600; font-size: 13.5px; }
+.till-sale-empty span { font-size: 12.3px; line-height: 1.5; }
+
+.till-lines { display: flex; flex-direction: column; gap: 12px; }
+.till-line {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  gap: 5px 10px; align-items: center;
+  padding-bottom: 12px; border-bottom: 1px solid rgba(30, 45, 38, 0.07);
+}
+.till-line:last-child { border-bottom: none; padding-bottom: 0; }
+.till-line-shot {
+  grid-row: 1 / span 2;
+  width: 44px; height: 54px; object-fit: contain;
+  border-radius: 5px; background: var(--cream-deep);
+}
+.till-line-main { min-width: 0; }
+.till-line-main strong { display: block; font-size: 12.8px; font-weight: 600; line-height: 1.3; }
+.till-line-meta {
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  margin-top: 3px; font-size: 11.5px; color: var(--ink-mute);
+}
+.till-line-meta .price { font-size: 12px; }
+.till-line-meta em { font-style: normal; }
+.till-line-meta select {
+  background: var(--cream); border: 1px solid var(--line);
+  border-radius: 5px; padding: 2px 5px;
+  font-size: 11px; color: var(--ink-soft); outline: none;
+}
+.till-line-meta select:focus { border-color: var(--mahogany); }
+.till-line-remove {
+  grid-column: 3; justify-self: end;
+  color: var(--ink-mute); padding: 5px; border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.till-line-remove:hover { color: var(--danger); background: rgba(184, 67, 45, 0.08); }
+.till-line-foot {
+  grid-column: 2 / -1;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.till-line-total { font-size: 14px; color: var(--ink); }
+
+.till-qty {
+  display: inline-flex; align-items: center; gap: 2px;
+  border: 1px solid var(--line-strong); border-radius: 20px; padding: 2px;
+}
+.till-qty button {
+  width: 27px; height: 27px; border-radius: 50%;
+  display: grid; place-items: center; color: var(--ink-soft);
+  transition: background 0.2s, color 0.2s;
+}
+.till-qty button:hover:not(:disabled) { background: var(--ink); color: var(--cream); }
+.till-qty button:disabled { opacity: 0.3; cursor: not-allowed; }
+.till-qty span { min-width: 24px; text-align: center; font-size: 13px; font-weight: 700; }
+
+/* ── blocks inside the sale panel ── */
+.till-block {
+  border-top: 1px solid var(--line); padding-top: 13px;
+  display: flex; flex-direction: column; gap: 9px;
+}
+.till-block-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.till-block-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-mute);
+}
+.till-block-note { font-size: 11.8px; color: var(--ink-soft); line-height: 1.45; }
+.till-block-note--quiet { color: var(--ink-mute); text-transform: none; letter-spacing: 0; }
+
+.till-seg {
+  display: inline-flex; border: 1px solid var(--line-strong);
+  border-radius: 20px; overflow: hidden; flex-shrink: 0;
+}
+.till-seg button {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 11px; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-mute); transition: background 0.2s, color 0.2s;
+}
+.till-seg button:hover { color: var(--ink); }
+.till-seg button.on { background: var(--ink); color: var(--cream); }
+
+.till-input {
+  display: flex; align-items: center; gap: 9px;
+  background: var(--cream); border: 1px solid var(--line-strong);
+  border-radius: 7px; padding: 9px 13px;
+  transition: border-color 0.25s;
+}
+.till-input:focus-within { border-color: var(--mahogany); }
+.till-input span { font-size: 12px; font-weight: 700; color: var(--ink-mute); flex-shrink: 0; }
+.till-input input {
+  flex: 1; min-width: 0; background: none; border: none; outline: none;
+  font-size: 14px; font-weight: 600; color: var(--ink);
+}
+.till-input input::placeholder { color: var(--ink-mute); font-weight: 400; }
+
+/* customer */
+.till-customer {
+  display: grid; grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 10px; align-items: center;
+  background: var(--cream); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px 12px;
+}
+.till-customer-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--ok); color: var(--cream);
+  display: grid; place-items: center;
+}
+.till-customer strong { display: block; font-size: 12.8px; font-weight: 600; }
+.till-customer-sub { display: block; font-size: 11.3px; color: var(--ink-mute); }
+.till-detach { color: var(--ink-mute); padding: 5px; border-radius: 6px; transition: color 0.2s; }
+.till-detach:hover { color: var(--danger); }
+
+.till-cust-list {
+  list-style: none; display: flex; flex-direction: column;
+  border: 1px solid var(--line); border-radius: 8px;
+  overflow: hidden; margin-top: 8px;
+}
+.till-cust-list li + li { border-top: 1px solid var(--line); }
+.till-cust-list button { width: 100%; text-align: left; padding: 9px 12px; transition: background 0.2s; }
+.till-cust-list button:hover { background: var(--cream); }
+.till-cust-list strong { display: block; font-size: 12.6px; font-weight: 600; }
+.till-cust-list span { font-size: 11.3px; color: var(--ink-mute); }
+
+/* payment */
+.till-pays { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.till-pay {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  background: var(--paper); border: 1px solid var(--line-strong);
+  border-radius: 7px; padding: 11px 8px;
+  font-size: 11.8px; font-weight: 600; color: var(--ink-soft);
+  transition: background 0.22s, border-color 0.22s, color 0.22s;
+}
+.till-pay:first-child { grid-column: 1 / -1; }
+.till-pay svg { color: var(--mahogany); flex-shrink: 0; }
+.till-pay:hover { border-color: var(--ink); color: var(--ink); }
+.till-pay.on { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+.till-pay.on svg { color: var(--sand); }
+
+.till-cash { display: flex; flex-direction: column; gap: 8px; }
+.till-tenders { display: flex; flex-wrap: wrap; gap: 6px; }
+.till-tender {
+  border: 1px solid var(--line-strong); border-radius: 20px;
+  padding: 6px 12px; font-size: 11.5px; font-weight: 700;
+  color: var(--ink-soft); transition: border-color 0.2s, color 0.2s;
+}
+.till-tender:hover { border-color: var(--mahogany); color: var(--mahogany); }
+.till-change {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  border-radius: 7px; padding: 9px 12px;
+  font-size: 12.3px; font-weight: 600; line-height: 1.4;
+  color: var(--ok); background: rgba(74, 124, 89, 0.09);
+}
+.till-change svg { flex-shrink: 0; }
+.till-change .price { font-size: 15px; color: var(--ok); }
+.till-change.is-short { color: var(--danger); background: rgba(184, 67, 45, 0.08); }
+.till-change.is-short .price { color: var(--danger); }
+
+/* totals */
+.till-totals {
+  border-top: 1px solid var(--line); padding-top: 13px;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.till-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  font-size: 13px; color: var(--ink-soft);
+}
+.till-row--off { color: var(--mahogany); }
+.till-row--grand {
+  border-top: 1px dashed var(--sand); margin-top: 3px; padding-top: 10px;
+  color: var(--ink); font-weight: 700;
+}
+.till-row--grand .price { font-size: 1.5rem; color: var(--ink); }
+
+.till-actions { display: flex; flex-direction: column; gap: 9px; }
+.till-clear-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 8px; border-radius: 7px;
+  font-size: 12px; font-weight: 600; color: var(--ink-mute);
+  transition: color 0.2s, background 0.2s;
+}
+.till-clear-btn:hover { color: var(--danger); background: rgba(184, 67, 45, 0.07); }
+.till-confirm {
+  border: 1px solid rgba(184, 67, 45, 0.4); background: rgba(184, 67, 45, 0.06);
+  border-radius: 8px; padding: 12px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.till-confirm p { font-size: 12.3px; color: var(--ink-soft); line-height: 1.45; }
+.till-confirm-row { display: flex; gap: 8px; }
+.till-confirm-row .btn { flex: 1; }
+.till-danger { background: var(--danger); color: var(--cream); border: 1px solid var(--danger); }
+.till-danger:hover { opacity: 0.88; }
+
+/* ── receipt ── */
+.till-scrim { z-index: 700; }
+.till-receipt {
+  position: relative;
+  width: min(392px, 94vw); max-height: 92vh; overflow-y: auto;
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 10px; padding: 28px 24px 22px; text-align: center;
+  box-shadow: 0 30px 70px rgba(30, 45, 38, 0.22);
+}
+.till-receipt-close { position: absolute; top: 8px; right: 8px; }
+.till-receipt-seal {
+  width: 46px; height: 46px; margin: 0 auto 12px; border-radius: 50%;
+  background: var(--ok); color: var(--cream);
+  display: grid; place-items: center;
+}
+.till-receipt h3 { font-size: 1.35rem; }
+.till-receipt-sub { font-size: 11.3px; color: var(--ink-mute); }
+.till-receipt-meta {
+  display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.till-receipt-cust { margin-top: 8px; font-size: 12.3px; color: var(--ink-soft); }
+.till-receipt-lines {
+  margin-top: 16px; padding: 12px 0;
+  border-top: 1px dashed var(--sand); border-bottom: 1px dashed var(--sand);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.till-receipt-sums {
+  padding: 12px 0; border-bottom: 1px dashed var(--sand);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.till-receipt-lines > div,
+.till-receipt-sums > div {
+  display: flex; justify-content: space-between; gap: 14px;
+  font-size: 12.2px; text-align: left; line-height: 1.4;
+}
+.till-receipt-lines > div > span:first-child { color: var(--ink-soft); }
+.till-receipt-sums > div > span:first-child { color: var(--ink-mute); }
+.till-receipt-sums > div.till-receipt-grand {
+  border-top: 1px dashed var(--sand); margin-top: 3px; padding-top: 9px;
+  font-size: 14px; font-weight: 700; color: var(--ink);
+}
+.till-receipt-sums > div.till-receipt-grand > span:first-child { color: var(--ink); }
+.till-receipt-thanks {
+  font-family: var(--font-display); font-style: italic;
+  font-size: 14px; color: var(--ink-soft); margin-top: 16px;
+}
+.till-receipt-actions {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px; margin: 16px 0 10px;
+}
+.till-receipt-actions .btn { padding: 10px 6px; font-size: 11px; gap: 6px; letter-spacing: 0.03em; }
+.till-receipt-note { font-size: 11.5px; color: var(--ink-mute); margin-bottom: 10px; line-height: 1.45; }
+
+/* ── phones ── */
+@media (max-width: 900px) {
+  .till { grid-template-columns: minmax(0, 1fr); }
+  .till-sale { position: static; max-height: none; overflow: visible; }
+  .till-head { padding: 12px 14px; }
+  .till-head-figure .price { font-size: 1.1rem; }
+  .till-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 10px; }
+  .shop-search.till-search input { font-size: 16px; }  /* stops iOS zooming on focus */
+  .till-receipt-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 420px) {
+  .till-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  .till-tile-body { padding: 9px 9px 11px; }
+  .till-tile-body strong { font-size: 12px; }
+  .till-sale { padding: 15px; }
+  .till-head-live { gap: 10px; }
+  .till-block-head { flex-wrap: wrap; gap: 8px; }
+  .till-receipt { padding: 24px 18px 20px; }
+  .till-receipt-actions { grid-template-columns: minmax(0, 1fr); }
+  .till-confirm-row { flex-direction: column; }
+}
+
+/* ── printing: the receipt and nothing else ── */
+/* Receipt printing. Every rule is scoped to "a receipt is actually open",
+   otherwise these would blank the page when printing a report. */
+@media print {
+  body:has(.till-scrim)::before { display: none !important; }
+  body:has(.till-scrim) * { visibility: hidden !important; }
+  .till-scrim, .till-scrim * { visibility: visible !important; }
+  .till-scrim {
+    position: absolute !important;
+    top: 0 !important; left: 0 !important; right: auto !important; bottom: auto !important;
+    display: block !important; width: 100% !important;
+    padding: 0 !important; margin: 0 !important;
+    background: none !important; z-index: auto !important;
+  }
+  .till-receipt {
+    width: 100% !important; max-width: 380px !important; max-height: none !important;
+    margin: 0 !important; padding: 0 8px !important;
+    border: none !important; border-radius: 0 !important; box-shadow: none !important;
+    overflow: visible !important; opacity: 1 !important; transform: none !important;
+  }
+  .till-receipt-seal { border: 1px solid var(--line) !important; }
+  .till-noprint, .till-noprint * { display: none !important; }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "yvonnes-collections",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "demo": "vite build && vite preview --port 4188 --open",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "^12.40.0",
+    "lenis": "^1.3.23",
+    "lucide-react": "^1.21.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.18.1",
+    "recharts": "^3.9.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.12"
+  }
+}

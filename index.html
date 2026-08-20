@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#F7F3EA" />
     <title>Yvonne's Collections, Accra</title>
     <meta name="description" content="Yvonne's Collections, Accra. Women, men, kids, footwear, watches and everyday essentials. Pay with Mobile Money or card, delivered nationwide." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -12,13 +13,18 @@
     <script>
       // The first slide's photo is the largest thing on the home page, so
       // start it downloading with the HTML rather than waiting for React.
-      // Only on the home route, or other pages warn about an unused preload.
-      if (location.pathname === '/') {
-        var l = document.createElement('link');
-        l.rel = 'preload'; l.as = 'image'; l.fetchPriority = 'high';
-        l.href = 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=80&auto=format&fit=crop';
-        document.head.appendChild(l);
-      }
+      // Home only: elsewhere the browser warns about an unused preload.
+      (function () {
+        var p = location.pathname.replace(/\/+$/, '');
+        if (p === '' || p === '/yvonnes-collections') {
+          var l = document.createElement('link');
+          l.rel = 'preload';
+          l.as = 'image';
+          l.fetchPriority = 'high';
+          l.href = 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=80&auto=format&fit=crop';
+          document.head.appendChild(l);
+        }
+      })();
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   </head>

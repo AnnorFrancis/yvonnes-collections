@@ -38,13 +38,17 @@ function Slider() {
 
   return (
     <section className="slider" aria-label="Featured departments">
-      <AnimatePresence mode="popLayout" custom={dir}>
-        <motion.div className="slide" key={slide.id}>
+      <AnimatePresence mode="wait" custom={dir}>
+        <motion.div
+          className="slide"
+          key={slide.id}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.28, ease: "easeOut" }}
+        >
           <motion.div
             className="slide-panelA"
             initial={{ x: dir > 0 ? '6%' : '-6%', opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: dir > 0 ? '-4%' : '4%', opacity: 0 }}
             transition={{ duration: 1, ease: EASE }}
           >
             <motion.img
@@ -60,7 +64,6 @@ function Slider() {
             className="slide-panelB"
             initial={{ y: 46, opacity: 0, rotate: 1.5 }}
             animate={{ y: 0, opacity: 1, rotate: 0 }}
-            exit={{ y: -30, opacity: 0 }}
             transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
           >
             <img src={slide.imageB} alt="" decoding="async" />

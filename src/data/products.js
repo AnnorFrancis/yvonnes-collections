@@ -4,7 +4,7 @@
 // prices, read from the tags in her photos.
 // `cost` is what the shop paid, used for profit reporting.
 
-const P = (f) => `/products/${f}.jpg`;
+const P = (f) => `${import.meta.env.BASE_URL}products/${f}.jpg`;
 const U = (id, w = 1000) =>
   `https://images.unsplash.com/photo-${id}?w=${w}&q=80&auto=format&fit=crop`;
 

@@ -69,7 +69,7 @@ function Manifesto() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: chipAfter * 0.035 }}
                 >
-                  <img src="/products/w1.jpg" alt="" />
+                  <img src={`${import.meta.env.BASE_URL}products/w1.jpg`} alt="" />
                 </motion.span>
               )}
             </span>
@@ -176,12 +176,12 @@ function Kinetic() {
     <section className="kinetic" ref={ref} aria-hidden="true">
       <motion.div className="kinetic-line" style={{ x: x1 }}>
         Genuine goods
-        <span className="chip"><img src="/products/p2.jpg" alt="" /></span>
+        <span className="chip"><img src={`${import.meta.env.BASE_URL}products/p2.jpg`} alt="" /></span>
         honest prices <em>every day</em>
       </motion.div>
       <motion.div className="kinetic-line" style={{ x: x2 }}>
         <em>From Accra</em> with love
-        <span className="chip"><img src="/products/p8.jpg" alt="" /></span>
+        <span className="chip"><img src={`${import.meta.env.BASE_URL}products/p8.jpg`} alt="" /></span>
         to your door
       </motion.div>
     </section>

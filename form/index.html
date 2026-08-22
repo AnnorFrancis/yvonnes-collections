@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trendy Norms Hub · Business details</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+:root{--cream:#F7F3EA;--paper:#FFFDF8;--ink:#1E2D26;--soft:#3F4E44;--mute:#6C7770;--accent:#8C4A2A;--ok:#4A7C59;--warn:#B8432D;--line:rgba(30,45,38,.16);--line2:rgba(30,45,38,.3)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.5 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:110px}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px}
+h1{font:500 1.9rem/1.1 Fraunces,Georgia,serif;margin:6px 0 6px}
+.sub{color:var(--soft);font-size:15px}
+.intro{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0 8px;font-size:14.5px;color:var(--soft)}
+.intro b{color:var(--ink)}
+.prog{display:flex;align-items:center;gap:12px;margin:14px 0 22px;font-size:13px;color:var(--mute)}
+.bar{flex:1;height:6px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+section{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 16px;margin-bottom:14px}
+h2{font:500 1.15rem/1.2 Fraunces,Georgia,serif;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+.why{font-size:13px;color:var(--mute);margin:0 0 12px}
+.urg{display:inline-block;background:#fbe9e4;color:var(--warn);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:10px}
+label.f{display:block;margin:12px 0}
+label.f>span{display:block;font-size:13px;font-weight:600;color:var(--soft);margin-bottom:5px}
+label.f small{display:block;font-weight:400;color:var(--mute);font-size:12px;margin-top:2px}
+input[type=text],input[type=tel],input[type=email],textarea,select{width:100%;font:inherit;font-size:16px;padding:12px 13px;border:1px solid var(--line2);border-radius:10px;background:#fff;color:var(--ink);min-height:46px}
+textarea{min-height:74px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts label{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);border-radius:999px;padding:9px 14px;font-size:14.5px;background:#fff;cursor:pointer;min-height:44px}
+.opts input{width:18px;height:18px;accent-color:var(--accent);margin:0}
+.opts label:has(input:checked){border-color:var(--accent);background:#fbf1ea}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.staff{display:grid;grid-template-columns:1.2fr .9fr 1.2fr;gap:8px;margin-bottom:8px}
+.staff input,.staff select{padding:10px;font-size:15px;min-height:44px}
+.hint{font-size:13px;color:var(--mute);margin-top:8px}
+.photos li{margin:6px 0;font-size:14.5px}
+.bottom{position:fixed;left:0;right:0;bottom:0;background:rgba(247,243,234,.97);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+.bottom .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:10px;font:600 14px Manrope,sans-serif;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer;padding:0 10px;text-decoration:none}
+.btn.p{background:var(--ok);color:#fff;border-color:var(--ok)}
+.btn:active{transform:translateY(1px)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--cream);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s}
+.toast.on{opacity:1}
+@media (max-width:420px){.row,.staff{grid-template-columns:1fr}.bottom .in{grid-template-columns:1fr 1fr}.bottom .in .btn.p{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)">Trendy Norms Hub</div>
+  <h1>Your business details</h1>
+  <p class="sub">Everything we need to finish your website and shop system. Ten short sections.</p>
+  <div class="intro">
+    <b>How it works:</b> type or tap your answers, then press <b>Send via WhatsApp</b> at the bottom. Your answers are saved on this phone as you go, so you can stop and come back. Leave anything you are unsure about blank.
+  </div>
+  <div class="prog"><span id="count">0 answered</span><div class="bar"><i id="bar"></i></div></div>
+
+  <form id="f" autocomplete="on">
+
+  <section data-s="1. Business identity">
+    <h2>1 · Your business identity</h2>
+    <p class="why">Goes on the website, receipts and every message customers get.</p>
+    <label class="f"><span>Exact shop name (spelling, capitals, apostrophes)</span><input type="text" name="Shop name" placeholder="e.g. Trendy Norms Hub"></label>
+    <label class="f"><span>Registered business name, if different</span><input type="text" name="Registered name"></label>
+    <label class="f"><span>A short line that describes the shop (optional)</span><input type="text" name="Tagline" placeholder="e.g. Everything you love, under one roof"></label>
+    <label class="f"><span>Logo, colours you love or hate (optional)</span><input type="text" name="Brand notes"></label>
+  </section>
+
+  <section data-s="2. Registration and tax">
+    <h2>2 · Registration and tax <span class="urg">Urgent</span></h2>
+    <p class="why">Paystack and WhatsApp Business will not approve the shop without these. Photos can be sent separately (see the end).</p>
+    <label class="f"><span>Business registration number</span><input type="text" name="Registration number"></label>
+    <label class="f"><span>TIN (Tax Identification Number)</span><input type="text" name="TIN"></label>
+    <label class="f"><span>Owner or director's Ghana Card number</span><input type="text" name="Ghana Card number" placeholder="GHA-000000000-0"></label>
+    <label class="f"><span>Is the business VAT registered?</span>
+      <div class="opts"><label><input type="radio" name="VAT registered" value="Yes">Yes</label><label><input type="radio" name="VAT registered" value="No">No</label><label><input type="radio" name="VAT registered" value="Not sure">Not sure</label></div></label>
+    <label class="f"><span>Registered with the Data Protection Commission?</span>
+      <div class="opts"><label><input type="radio" name="Data Protection registered" value="Yes">Yes</label><label><input type="radio" name="Data Protection registered" value="No">No</label><label><input type="radio" name="Data Protection registered" value="Not sure">Not sure</label></div></label>
+  </section>
+
+  <section data-s="3. Contacts">
+    <h2>3 · Contacts</h2>
+    <div class="row">
+      <label class="f"><span>Owner's full name</span><input type="text" name="Owner name"></label>
+      <label class="f"><span>Owner's phone</span><input type="tel" name="Owner phone" inputmode="tel"></label>
+    </div>
+    <label class="f"><span>Owner's personal email</span><input type="email" name="Owner email" inputmode="email"></label>
+    <label class="f"><span>Business email (we can create one for you)</span><input type="email" name="Business email" inputmode="email"><small>Leave blank if you want us to create it.</small></label>
+    <label class="f"><span>WhatsApp number for the BUSINESS <span class="urg">Urgent</span></span><input type="tel" name="Business WhatsApp" inputmode="tel"><small>Must not already be used on personal WhatsApp. A new SIM is fine.</small></label>
+    <label class="f"><span>Shop phone customers should call</span><input type="tel" name="Shop phone" inputmode="tel"></label>
+    <label class="f"><span>Shop address, with nearest landmark</span><textarea name="Address"></textarea></label>
+    <label class="f"><span>Google Maps link (optional)</span><input type="text" name="Maps link"></label>
+    <label class="f"><span>Opening days and hours</span><input type="text" name="Hours" placeholder="e.g. Mon to Sat, 8am to 7pm"></label>
+    <div class="row">
+      <label class="f"><span>Instagram</span><input type="text" name="Instagram" placeholder="@"></label>
+      <label class="f"><span>Facebook / TikTok / Snapchat</span><input type="text" name="Other socials"></label>
+    </div>
+  </section>
+
+  <section data-s="4. Getting paid">
+    <h2>4 · Getting paid <span class="urg">Urgent</span></h2>
+    <p class="why">Where money from online sales should land. Paystack pays out the next working day.</p>
+    <label class="f"><span>Pay out to</span>
+      <div class="opts"><label><input type="radio" name="Pay out to" value="Bank account">Bank account</label><label><input type="radio" name="Pay out to" value="MoMo wallet">MoMo wallet</label></div></label>
+    <label class="f"><span>Bank name and branch (if bank)</span><input type="text" name="Bank"></label>
+    <label class="f"><span>Account number (if bank)</span><input type="text" name="Account number" inputmode="numeric"></label>
+    <label class="f"><span>Account name, exactly as the bank has it</span><input type="text" name="Account name"></label>
+    <label class="f"><span>MoMo number and network (if MoMo)</span><input type="text" name="MoMo number" placeholder="e.g. 024 000 0000, MTN"></label>
+    <label class="f"><span>MoMo registered name</span><input type="text" name="MoMo name"></label>
+    <label class="f"><span>Do you already have an MTN MoMo merchant (Pay) code in the shop?</span><input type="text" name="MoMo merchant code" placeholder="Code, or No"></label>
+    <label class="f"><span>Do you have a card machine (POS terminal) in the shop?</span><input type="text" name="Card machine" placeholder="From which bank, or No"></label>
+  </section>
+
+  <section data-s="5. Delivery">
+    <h2>5 · Delivery</h2>
+    <p class="why">This becomes the delivery options customers see at checkout.</p>
+    <label class="f"><span>Areas you deliver to, and the price for each</span><textarea name="Delivery areas and prices" placeholder="e.g. Accra GH₵30, Tema GH₵30, Kumasi GH₵50"></textarea></label>
+    <label class="f"><span>Same-day cut-off time (orders before ___ go today)</span><input type="text" name="Same-day cut-off" placeholder="e.g. 3pm"></label>
+    <label class="f"><span>Free delivery above what amount? (or never)</span><input type="text" name="Free delivery from" placeholder="e.g. GH₵500"></label>
+    <label class="f"><span>Cash on delivery? Where?</span><input type="text" name="Cash on delivery" placeholder="e.g. Accra and Tema only"></label>
+    <label class="f"><span>Who delivers?</span>
+      <div class="opts"><label><input type="checkbox" name="Who delivers" value="Own rider">Own rider</label><label><input type="checkbox" name="Who delivers" value="Courier company">Courier company</label><label><input type="checkbox" name="Who delivers" value="Customer pickup">Customer pickup</label></div></label>
+  </section>
+
+  <section data-s="6. Returns and exchanges">
+    <h2>6 · Returns and exchanges</h2>
+    <p class="why">The website must say exactly what the shop really does.</p>
+    <label class="f"><span>How many days to return or exchange?</span><input type="text" name="Return days" placeholder="e.g. 7 days"></label>
+    <label class="f"><span>Conditions</span><input type="text" name="Return conditions" placeholder="e.g. unworn, tags on, with receipt"></label>
+    <label class="f"><span>Items that cannot be returned</span><input type="text" name="No-return items" placeholder="e.g. underwear, opened cosmetics"></label>
+    <label class="f"><span>Refund to MoMo, or exchange only?</span>
+      <div class="opts"><label><input type="radio" name="Refund type" value="Refund to MoMo">Refund to MoMo</label><label><input type="radio" name="Refund type" value="Exchange only">Exchange only</label><label><input type="radio" name="Refund type" value="Depends">Depends</label></div></label>
+  </section>
+
+  <section data-s="7. Your staff">
+    <h2>7 · Your staff</h2>
+    <p class="why">Each person gets a login. Owner sees everything; manager runs the shop; cashier sells only.</p>
+    <div class="staff"><input type="text" name="Staff 1 name" placeholder="Name"><select name="Staff 1 role"><option value="">Role</option><option>Owner</option><option>Manager</option><option>Cashier</option></select><input type="text" name="Staff 1 phone or email" placeholder="Phone or email"></div>
+    <div class="staff"><input type="text" name="Staff 2 name" placeholder="Name"><select name="Staff 2 role"><option value="">Role</option><option>Owner</option><option>Manager</option><option>Cashier</option></select><input type="text" name="Staff 2 phone or email" placeholder="Phone or email"></div>
+    <div class="staff"><input type="text" name="Staff 3 name" placeholder="Name"><select name="Staff 3 role"><option value="">Role</option><option>Owner</option><option>Manager</option><option>Cashier</option></select><input type="text" name="Staff 3 phone or email" placeholder="Phone or email"></div>
+    <div class="staff"><input type="text" name="Staff 4 name" placeholder="Name"><select name="Staff 4 role"><option value="">Role</option><option>Owner</option><option>Manager</option><option>Cashier</option></select><input type="text" name="Staff 4 phone or email" placeholder="Phone or email"></div>
+    <label class="f"><span>Who should get the alert when an order comes in?</span><input type="text" name="Order alerts to" placeholder="Names or numbers"></label>
+  </section>
+
+  <section data-s="8. Your products">
+    <h2>8 · Your products</h2>
+    <p class="why">The real catalogue replaces the sample. We can do photos and prices in batches.</p>
+    <label class="f"><span>Main categories you sell</span><input type="text" name="Categories" placeholder="e.g. women, men, kids, shoes, watches"></label>
+    <label class="f"><span>Roughly how many different products?</span><input type="text" name="Product count" inputmode="numeric"></label>
+    <label class="f"><span>Do you keep a price list? Where?</span><input type="text" name="Price list" placeholder="e.g. phone note, Excel, paper book"></label>
+    <label class="f"><span>Do you know your cost price for each item?</span>
+      <div class="opts"><label><input type="radio" name="Cost prices known" value="Yes">Yes</label><label><input type="radio" name="Cost prices known" value="Some">Some</label><label><input type="radio" name="Cost prices known" value="No">No</label></div>
+      <small>Needed for profit reports. Can be added later.</small></label>
+    <label class="f"><span>Product photos: who will take them, and when?</span><input type="text" name="Photos plan"></label>
+    <label class="f"><span>Sizes you stock</span><input type="text" name="Sizes" placeholder="e.g. S to XXXL, shoes 36 to 45, kids 2 to 12"></label>
+  </section>
+
+  <section data-s="9. Web address and accounts">
+    <h2>9 · Web address and accounts</h2>
+    <label class="f"><span>Web address you want (1st, 2nd, 3rd choice)</span><input type="text" name="Domain choices" placeholder="e.g. trendynormshub.com"></label>
+    <label class="f"><span>Email to register the accounts under</span><input type="email" name="Accounts email" inputmode="email"></label>
+    <label class="f"><span>Who keeps the passwords?</span>
+      <div class="opts"><label><input type="radio" name="Passwords kept by" value="Me, with Nana as helper">Me, with Nana as helper</label><label><input type="radio" name="Passwords kept by" value="Nana">Nana</label></div></label>
+  </section>
+
+  <section data-s="10. Marketing">
+    <h2>10 · Marketing (optional)</h2>
+    <label class="f"><span>Instagram or Facebook ads?</span>
+      <div class="opts"><label><input type="radio" name="Runs ads" value="Yes">Yes</label><label><input type="radio" name="Runs ads" value="Planning">Planning</label><label><input type="radio" name="Runs ads" value="No">No</label></div></label>
+    <label class="f"><span>Meta Business account?</span>
+      <div class="opts"><label><input type="radio" name="Meta Business account" value="Yes">Yes</label><label><input type="radio" name="Meta Business account" value="No">No</label><label><input type="radio" name="Meta Business account" value="Not sure">Not sure</label></div></label>
+    <label class="f"><span>Anything else you want the website to say or do</span><textarea name="Anything else"></textarea></label>
+  </section>
+
+  <section>
+    <h2>Photos to send separately</h2>
+    <p class="why">After you press Send, attach these in the same WhatsApp chat.</p>
+    <ul class="photos">
+      <li>Certificate of business registration</li>
+      <li>Ghana Card, front and back</li>
+      <li>Proof of business address (a utility bill or similar)</li>
+      <li>Your logo, if you have one</li>
+    </ul>
+  </section>
+  </form>
+
+  <p class="hint">Prepared by Nana (Annor Francis). Your answers go only to him.</p>
+</div>
+
+<div class="bottom"><div class="in">
+  <button class="btn p" id="wa" type="button">Send via WhatsApp</button>
+  <a class="btn" id="mail" href="#">Send by email</a>
+  <button class="btn" id="copy" type="button">Copy answers</button>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var KEY='tnh-business-form-v1', form=document.getElementById('f');
+  var fields=Array.prototype.slice.call(form.querySelectorAll('input,textarea,select'));
+  // restore
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){saved={}}
+  fields.forEach(function(el){
+    var k=el.name+'|'+(el.value||''), v=saved[el.name];
+    if(el.type==='radio'){ if(v===el.value) el.checked=true; }
+    else if(el.type==='checkbox'){ if(Array.isArray(v)&&v.indexOf(el.value)>-1) el.checked=true; }
+    else if(v!=null){ el.value=v; }
+  });
+  function collect(){
+    var out={};
+    fields.forEach(function(el){
+      if(el.type==='radio'){ if(el.checked) out[el.name]=el.value; }
+      else if(el.type==='checkbox'){ if(el.checked){ out[el.name]=(out[el.name]||[]).concat(el.value); } }
+      else if(el.value.trim()) out[el.name]=el.value.trim();
+    });
+    return out;
+  }
+  var names=[];fields.forEach(function(el){ if(names.indexOf(el.name)<0) names.push(el.name); });
+  function save(){
+    var data=collect(); localStorage.setItem(KEY,JSON.stringify(data));
+    var n=Object.keys(data).length, total=names.length;
+    document.getElementById('count').textContent=n+' of '+total+' answered';
+    document.getElementById('bar').style.width=Math.round(100*n/total)+'%';
+  }
+  form.addEventListener('input',save); form.addEventListener('change',save); save();
+
+  function text(){
+    var data=collect(), lines=['TRENDY NORMS HUB, business details'];
+    var secs=form.querySelectorAll('section[data-s]');
+    secs.forEach(function(s){
+      var title=s.getAttribute('data-s'), any=false, block=[];
+      s.querySelectorAll('input,textarea,select').forEach(function(el){
+        var v=data[el.name]; if(v==null) return;
+        if(Array.isArray(v)) v=v.join(', ');
+        var line=el.name+': '+v;
+        if(block.indexOf(line)<0){ block.push(line); any=true; }
+      });
+      if(any){ lines.push(''); lines.push('== '+title+' =='); lines=lines.concat(block); }
+    });
+    var missing=names.length-Object.keys(data).length;
+    lines.push(''); lines.push(missing===0?'All questions answered.':missing+' questions left blank for now.');
+    return lines.join('\n');
+  }
+  function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},2200);}
+  function chunks(s,max){var out=[];while(s.length>max){var cut=s.lastIndexOf('\n',max);if(cut<max*0.5)cut=max;out.push(s.slice(0,cut));s=s.slice(cut);}out.push(s);return out;}
+  var part=0, parts=[];
+  document.getElementById('wa').addEventListener('click',function(){
+    if(part===0){ parts=chunks(text(),3000); }
+    var msg=parts[part]+(parts.length>1?'\n\n(part '+(part+1)+' of '+parts.length+')':'');
+    window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+    part++;
+    if(part>=parts.length){ this.textContent='Sent. Send again?'; part=0; }
+    else { this.textContent='Send part '+(part+1)+' of '+parts.length; }
+  });
+  document.getElementById('mail').addEventListener('click',function(e){
+    e.preventDefault();
+    location.href='mailto:francisannor212@gmail.com?subject='+encodeURIComponent('Trendy Norms Hub, business details')+'&body='+encodeURIComponent(text());
+  });
+  document.getElementById('copy').addEventListener('click',function(){
+    var t=text();
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast('Copied. Paste it anywhere.')});}
+    else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Copied.');}
+  });
+})();
+</script>
+</body>
+</html>
